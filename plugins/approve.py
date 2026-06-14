@@ -12,13 +12,6 @@ from helper_func import *
 APPROVAL_WAIT_TIME = 5  # seconds 
 AUTO_APPROVE_ENABLED = True  # Toggle for enabling/disabling auto approval 
 
-async def get_user_client():
-    global user_client
-    if user_client is None:
-        user_client = UserClient("userbot", session_string=USER_SESSION, api_id=APP_ID, api_hash=API_HASH)
-        await user_client.start()
-    return user_client
-
 @Client.on_chat_join_request((filters.group | filters.channel) & filters.chat(CHAT_ID) if CHAT_ID else (filters.group | filters.channel))
 async def autoapprove(client, message: ChatJoinRequest):
     global AUTO_APPROVE_ENABLED
@@ -29,7 +22,7 @@ async def autoapprove(client, message: ChatJoinRequest):
     chat = message.chat
     user = message.from_user
 
-    # check agr approval of hai us chnl m
+    # check agr approval off hai us chnl m
     if await is_approval_off(chat.id):
         print(f"Auto-approval is OFF for channel {chat.id}")
         return
@@ -38,33 +31,78 @@ async def autoapprove(client, message: ChatJoinRequest):
     
     await asyncio.sleep(APPROVAL_WAIT_TIME)
 
-    # Check if user is already a participant before approving
     try:
         member = await client.get_chat_member(chat.id, user.id)
         if member.status in ["member", "administrator", "creator"]:
             print(f"User {user.id} is already a participant of {chat.id}, skipping approval.")
             return
     except UserNotParticipant:
-        # User is not a member, handle accordingly
         pass
 
-    await client.approve_chat_join_request(chat_id=chat.id, user_id=user.id)
-    
-    if APPROVED == "on":
-        invite_link = await client.export_chat_invite_link(chat.id)
-        buttons = [
-            [InlineKeyboardButton('• ᴊᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇs •', url='https://t.me/Codeflix_Bots')],
-            [InlineKeyboardButton(f'• ᴊᴏɪɴ {chat.title} •', url=invite_link)]
-        ]
-        markup = InlineKeyboardMarkup(buttons)
-        caption = f"<b>ʜᴇʏ {user.mention()},\n\n<blockquote> ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ _{chat.title} ʜᴀs ʙᴇᴇɴ ᴀᴘᴘʀᴏᴠᴇᴅ.</blockquote> </b>"
+    try:
+        await client.approve_chat_join_request(chat_id=chat.id, user_id=user.id)
         
-        await client.send_photo(
-            chat_id=user.id,
-            photo='https://litter.catbox.moe/mzsd3o.jpg',
-            caption=caption,
-            reply_markup=markup
-        )
+        # FIXED: Pyrogram configuration fallback safely
+        approved_toggle = globals().get('APPROVED', 'on')
+        if approved_toggle == "on":
+            try:
+                invite_link = await client.export_chat_invite_link(chat.id)
+            except Exception:
+                invite_link = "https://t.me/Codeflix_Bots"
+
+            buttons = [
+                [InlineKeyboardButton('• ᴊᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇs •', url='https://t.me/Codeflix_Bots')],
+                [InlineKeyboardButton(f'• ᴊᴏɪɴ {chat.title} •', url=invite_link)]
+            ]
+            markup = InlineKeyboardMarkup(buttons)
+            
+            # FIXED: user.mention() syntax error resolved to user.mention
+            caption = f"<b>ʜᴇʏ {user.mention},\n\n<blockquote> ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ _{chat.title} ʜᴀs ʙᴇᴇɴ ᴀᴘᴘʀᴏᴠᴇᴅ.</blockquote> </b>"
+            
+            try:
+                await client.send_photo(
+                    chat_id=user.id,
+                    photo='https://litter.catbox.moe/mzsd3o.jpg',
+                    caption=caption,
+                    reply_markup=markup
+                )
+            except Exception as e:
+                print(f"Could not send PM notification to user {user.id}: {e}")
+    except Exception as e:
+        print(f"Approval error: {e}")
+
+# ==================== NEW FULL POWER /approveall COMMAND ====================
+@Client.on_message(filters.command("approveall") & (filters.group | filters.channel))
+async def approve_all_pending(client, message: Message):
+    # Check authorization safely using config definitions
+    if message.from_user.id not in ADMINS:
+        return await message.reply_text("❌ Only admins can use this command.")
+
+    chat_id = message.chat.id
+    status_msg = await message.reply_text("⚡ **ᴘʀᴏᴄᴇssɪɴɢ... ᴀᴘᴘʀᴏᴠɪɴɢ ᴀʟʟ ᴘᴇɴᴅɪɴɢ ᴊᴏɪɴ ʀᴇǫᴜᴇsᴛs.**")
+    
+    approved_count = 0
+    try:
+        # Loop over the raw updates via pyrogram generator structure
+        async for request in client.get_chat_join_requests(chat_id):
+            try:
+                await client.approve_chat_join_request(chat_id, request.from_user.id)
+                approved_count += 1
+                if approved_count % 10 == 0:
+                    await status_msg.edit_text(f"⏳ **ᴀᴘᴘʀᴏᴠɪɴɢ...**\nSuccessfully Approved: `{approved_count}` users.")
+                await asyncio.sleep(1) # Prevent FloodWait
+            except FloodWait as e:
+                await asyncio.sleep(e.x)
+            except Exception:
+                pass
+        
+        await status_msg.edit_text(f"✅ **ᴛᴀsᴋ ᴄᴏᴍᴘʟᴇᴛᴇᴅ!**\n\nTotal approved requests: `{approved_count}`")
+    except ChatAdminRequired:
+        await status_msg.edit_text("❌ **Eʀʀᴏʀ:** I need admin rights with 'Invite Users via Link' permission to approve users here.")
+    except Exception as e:
+        await status_msg.edit_text(f"❌ **Error executing command:** `{e}`")
+
+# ============================================================================
 
 @Client.on_message(filters.command("reqtime") & is_owner_or_admin)
 async def set_reqtime(client, message: Message):
@@ -109,3 +147,4 @@ async def approve_on_command(client, message: Message):
         await message.reply_text(f"✅ Auto-approval is now <b>ON</b> for channel <code>{channel_id}</code>.")
     else:
         await message.reply_text(f"❌ Failed to set auto-approval ON for channel <code>{channel_id}</code>.")
+                
