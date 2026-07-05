@@ -34,7 +34,7 @@ START_MSG = os.environ.get("START_MESSAGE", "<b><blockquote> ›› ʜᴇʏ {men
 HELP = os.environ.get("HELP_MESSAGE", "<b><blockquote expandable>» Creator: <a href=https://t.me/EpicSenpai>UrSenpai</a>\n» Our Community: <a href=https://t.me/SenFlux>My Network</a>\n» Anime Channel: <a href=https://t.me/PrimeToons>PrimeToons</a>\n» Developer: <a href=https://t.me/EpicSenpai>EpicSenpai</a></b>")
 ABOUT = os.environ.get("ABOUT_MESSAGE", "<b><blockquote expandable>This bot is developed by EpicSenpai (@EpicSenpai) to securely share Telegram channel links with temporary invite links, protecting your channels from copyright issues.</b>")
 
-ABOUT_TXT = """<b>◍ Mʏ Nᴀᴍᴇ: Kᴀғᴋᴀ 💗
+ABOUT_TXT = """<b>◍ ᴍʏ ɴᴀᴍᴇ: Kᴀғᴋᴀ 💗
 <blockquote expandable>›› ᴄᴏᴍᴍᴜɴɪᴛʏ: <a href='https://t.me/SenFlux'>𝖲𝖾𝗇𝖥𝗅𝗎𝗑</a>
 ›› ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/SenFlux'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>
 ›› ᴏᴡɴᴇʀ: <a href='https://t.me/EpicSenpai'>𝖤𝗉𝗂𝖼𝖲𝖾𝗇𝗉𝖺𝗂</a>
@@ -43,11 +43,11 @@ ABOUT_TXT = """<b>◍ Mʏ Nᴀᴍᴇ: Kᴀғᴋᴀ 💗
 ›› ᴅᴀᴛᴀʙᴀsᴇ: <a href='https://www.mongodb.com/docs/'>Mᴏɴɢᴏ ᴅʙ</a>
 ›› ᴅᴇᴠᴇʟᴏᴘᴇʀ: @EpicSenpai</b></blockquote>""" # Bhosdiwalo agar developer me Yato ka username hataya to agli baar se koi repo public nhi krunga!!
 
-CHANNELS_TXT = """<b>◍ Mʏ Nᴇᴛᴡᴏʀᴋs
+CHANNELS_TXT = """<b>◍ ᴍʏ ɴᴇᴛᴡᴏʀᴋꜱ
 <blockquote expandable>›› ᴀɴɪᴍᴇ ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/PrimeToons'>ᴘʀɪᴍᴇᴛᴏᴏɴꜱ</a>
 ›› ᴍᴏᴠɪᴇs: <a href='https://t.me/AuraTube'>ᴀᴜʀᴀᴛᴜʙᴇ</a>
 ›› ᴡᴇʙsᴇʀɪᴇs: <a href='https://t.me/'>ᴡᴇʙsᴇʀɪᴇs</a>
-›› ᴀᴅᴜʟᴛ ᴄʜᴀɴɴᴇʟs: <a href='https://t.me/SpicyVerse'>ᴄᴏʀɴʜᴜʙ</a>
+›› ᴀᴅᴜʟᴛ ᴄʜᴀɴɴᴇʟs: <a href='https://t.me/SpicyVerse'>ꜱᴘɪᴄʏᴠᴇʀꜱᴇ</a>
 ›› ᴅᴇᴠᴇʟᴏᴘᴇʀ: @EpicSenpai</b></blockquote>""" # Bhosdiwalo agar developer me Yato ka username hataya to agli baar se koi repo public nhi krunga!!
 
 #--- ---- ---- --- --- --- - -- -  - - - - - - - - - - - --  - -
