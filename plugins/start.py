@@ -436,4 +436,46 @@ async def auto_delete(sent_msg, duration):
         await sent_msg.delete()
     except:
         pass
-        
+
+@Bot.on_callback_query(filters.regex("^ABOUT$"))
+async def about_callback(client: Bot, callback_query: CallbackQuery):
+    await callback_query.answer()
+    back_button = InlineKeyboardMarkup(
+        [[InlineKeyboardButton("• Back •", callback_data="back_to_start"),
+          InlineKeyboardButton("• Close •", callback_data="close")]]
+    )
+    await callback_query.message.edit_caption(
+        caption=ABOUT_TXT,
+        reply_markup=back_button,
+        parse_mode=ParseMode.HTML
+    )
+
+@Bot.on_callback_query(filters.regex("^HELP$"))
+async def channels_callback(client: Bot, callback_query: CallbackQuery):
+    await callback_query.answer()
+    back_button = InlineKeyboardMarkup(
+        [[InlineKeyboardButton("• Back •", callback_data="back_to_start"),
+          InlineKeyboardButton("• Close •", callback_data="close")]]
+    )
+    await callback_query.message.edit_caption(
+        caption=CHANNELS_TXT,
+        reply_markup=back_button,
+        parse_mode=ParseMode.HTML
+    )
+
+@Bot.on_callback_query(filters.regex("^back_to_start$"))
+async def back_to_start_callback(client: Bot, callback_query: CallbackQuery):
+    await callback_query.answer()
+    inline_buttons = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="ABOUT"),
+             InlineKeyboardButton("ᴄʜᴀɴɴᴇʟs •", callback_data="HELP")],
+            [InlineKeyboardButton("• Close •", callback_data="close")]
+        ]
+    )
+    formatted_msg = START_MSG.format(mention=callback_query.from_user.mention) if "{mention}" in START_MSG else START_MSG
+    await callback_query.message.edit_caption(
+        caption=formatted_msg,
+        reply_markup=inline_buttons,
+        parse_mode=ParseMode.HTML
+    )
