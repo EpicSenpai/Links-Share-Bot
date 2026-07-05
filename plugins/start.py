@@ -131,7 +131,7 @@ async def start_command(client: Bot, message: Message):
     else:
         inline_buttons = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="ABOUT_TXT"),
+                [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="ABOUT"),
                  InlineKeyboardButton("• ᴄʜᴀɴɴᴇʟs", callback_data="CHANNELS_TXT")],
                 [InlineKeyboardButton("• Close •", callback_data="close")]
             ]
