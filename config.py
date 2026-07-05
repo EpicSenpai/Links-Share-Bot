@@ -35,6 +35,7 @@ HELP = os.environ.get("HELP_MESSAGE", "<b><blockquote expandable>» Creator: <a 
 ABOUT = os.environ.get("ABOUT_MESSAGE", "<b><blockquote expandable>This bot is developed by EpicSenpai (@EpicSenpai) to securely share Telegram channel links with temporary invite links, protecting your channels from copyright issues.</blockquote</b>")
 
 ABOUT_TXT = """<b>◍ ᴍʏ ɴᴀᴍᴇ: Kᴀғᴋᴀ 💗
+
 <blockquote expandable>›› ᴄᴏᴍᴍᴜɴɪᴛʏ: <a href='https://t.me/SenFlux'>𝖲𝖾𝗇𝖥𝗅𝗎𝗑</a>
 ›› ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/SenFlux'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>
 ›› ᴏᴡɴᴇʀ: <a href='https://t.me/EpicSenpai'>𝖤𝗉𝗂𝖼𝖲𝖾𝗇𝗉𝖺𝗂</a>
