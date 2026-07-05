@@ -30,9 +30,9 @@ TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "40"))
 START_PIC = "https://litter.catbox.moe/39r26l.jpg"
 START_IMG = "https://telegra.ph/file/f3d3aff9ec422158feb05-d2180e3665e0ac4d32.jpg"
 # Messages
-START_MSG = os.environ.get("START_MESSAGE", "<b><blockquote> ›› ʜᴇʏ {mention} × </blockquote>\n\nᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴀᴅᴠᴀɴᴄᴇᴅ ʟɪɴᴋs sʜᴀʀɪɴɢ ʙᴏᴛ. ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ, ʏᴏᴜ ᴄᴀɴ sʜᴀʀᴇ ʟɪɴᴋs ᴀɴᴅ ᴋᴇᴇᴘ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟs sᴀғᴇ ғʀᴏᴍ ᴄᴏᴘʏʀɪɢʜᴛ ɪssᴜᴇs.\n<blockquote></b>")
-HELP = os.environ.get("HELP_MESSAGE", "<b><blockquote expandable>» Creator: <a href=https://t.me/EpicSenpai>UrSenpai</a>\n» Our Community: <a href=https://t.me/SenFlux>My Network</a>\n» Anime Channel: <a href=https://t.me/PrimeToons>PrimeToons</a>\n» Developer: <a href=https://t.me/EpicSenpai>EpicSenpai</a></b>")
-ABOUT = os.environ.get("ABOUT_MESSAGE", "<b><blockquote expandable>This bot is developed by EpicSenpai (@EpicSenpai) to securely share Telegram channel links with temporary invite links, protecting your channels from copyright issues.</b>")
+START_MSG = os.environ.get("START_MESSAGE", "<b><blockquote> ›› ʜᴇʏ {mention} × </blockquote>\n\nᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴀᴅᴠᴀɴᴄᴇᴅ ʟɪɴᴋs sʜᴀʀɪɴɢ ʙᴏᴛ. ᴡɪᴛʜ ᴛʜɪs ʙᴏᴛ, ʏᴏᴜ ᴄᴀɴ sʜᴀʀᴇ ʟɪɴᴋs ᴀɴᴅ ᴋᴇᴇᴘ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟs sᴀғᴇ ғʀᴏᴍ ᴄᴏᴘʏʀɪɢʜᴛ ɪssᴜᴇs.\n</blockquote></b>")
+HELP = os.environ.get("HELP_MESSAGE", "<b><blockquote expandable>» Creator: <a href=https://t.me/EpicSenpai>UrSenpai</a>\n» Our Community: <a href=https://t.me/SenFlux>My Network</a>\n» Anime Channel: <a href=https://t.me/PrimeToons>PrimeToons</a>\n» Developer: <a href=https://t.me/EpicSenpai>EpicSenpai</a></blockquote</b>")
+ABOUT = os.environ.get("ABOUT_MESSAGE", "<b><blockquote expandable>This bot is developed by EpicSenpai (@EpicSenpai) to securely share Telegram channel links with temporary invite links, protecting your channels from copyright issues.</blockquote</b>")
 
 ABOUT_TXT = """<b>◍ ᴍʏ ɴᴀᴍᴇ: Kᴀғᴋᴀ 💗
 <blockquote expandable>›› ᴄᴏᴍᴍᴜɴɪᴛʏ: <a href='https://t.me/SenFlux'>𝖲𝖾𝗇𝖥𝗅𝗎𝗑</a>
