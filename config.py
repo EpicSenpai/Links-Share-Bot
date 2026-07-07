@@ -36,7 +36,7 @@ ABOUT = os.environ.get("ABOUT_MESSAGE", "<b><blockquote expandable>This bot is d
 
 ABOUT_TXT = """<b>✦ ᴍʏ ɴᴀᴍᴇ: Kᴀғᴋᴀ 💗
 
-<blockquote expandable>›› ᴄᴏᴍᴍᴜɴɪᴛʏ: <a href='https://t.me/SenFlux'>𝖲𝖾𝗇𝖥𝗅𝗎𝗑</a>
+<blockquote expandable>›› ᴄᴏᴍᴍᴜɴɪᴛʏ: <a href='https://t.me/+rvjIax-_5GQwZmRl'>Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ</a>
 ›› ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/SenFlux'>Cʟɪᴄᴋ ʜᴇʀᴇ</a>
 ›› ᴏᴡɴᴇʀ: <a href='https://t.me/EpicSenpai'>𝖤𝗉𝗂𝖼𝖲𝖾𝗇𝗉𝖺𝗂</a>
 ›› ʟᴀɴɢᴜᴀɢᴇ: <a href='https://docs.python.org/3/'>Pʏᴛʜᴏɴ 3</a>
@@ -44,7 +44,7 @@ ABOUT_TXT = """<b>✦ ᴍʏ ɴᴀᴍᴇ: Kᴀғᴋᴀ 💗
 ›› ᴅᴀᴛᴀʙᴀsᴇ: <a href='https://www.mongodb.com/docs/'>Mᴏɴɢᴏ ᴅʙ</a>
 ›› ᴅᴇᴠᴇʟᴏᴘᴇʀ: @EpicSenpai</b></blockquote>""" # Bhosdiwalo agar developer me Yato ka username hataya to agli baar se koi repo public nhi krunga!!
 
-CHANNELS_TXT = """<b>✦ ᴍʏ ɴᴇᴛᴡᴏʀᴋꜱ
+CHANNELS_TXT = """<b>✦ ᴍʏ ɴᴇᴛᴡᴏʀᴋ
 
 <blockquote expandable>›› ᴀɴɪᴍᴇ ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/PrimeToons'>ᴘʀɪᴍᴇᴛᴏᴏɴꜱ</a>
 ›› ᴍᴏᴠɪᴇs: <a href='https://t.me/AuraTube'>ᴀᴜʀᴀᴛᴜʙᴇ</a>
