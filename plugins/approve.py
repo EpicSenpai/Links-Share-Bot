@@ -51,13 +51,13 @@ async def autoapprove(client, message: ChatJoinRequest):
                 invite_link = "https://t.me/SenFlux"
 
             buttons = [
-                [InlineKeyboardButton('• ᴊᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇs •', url='https://t.me/SpicyVerse')],
-                [InlineKeyboardButton(f'• ᴊᴏɪɴ {chat.title} •', url=invite_link)]
+                [InlineKeyboardButton('• ꜱᴇɴғʟᴜx •', url='https://t.me/SenFlux')],
+                [InlineKeyboardButton(f'• ᴊᴏɪɴ ʜᴇʀᴇ •', url=invite_link)]
             ]
             markup = InlineKeyboardMarkup(buttons)
             
             # FIXED: user.mention() syntax error resolved to user.mention
-            caption = f"<b>ʜᴇʏ {user.mention},\n\n<blockquote> ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ {chat.title} ʜᴀs ʙᴇᴇɴ ᴀᴘᴘʀᴏᴠᴇᴅ.</blockquote> </b>"
+            caption = f"<b><blockquote>›› ʜᴇʏ {user.mention},</blockquote>\n\n<blockquote>◍ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ {chat.title} ʜᴀs ʙᴇᴇɴ ᴀᴘᴘʀᴏᴠᴇᴅ.</blockquote> </b>"
             
             try:
                 await client.send_photo(
