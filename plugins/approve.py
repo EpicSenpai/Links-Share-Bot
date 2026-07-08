@@ -48,7 +48,7 @@ async def autoapprove(client, message: ChatJoinRequest):
             try:
                 invite_link = await client.export_chat_invite_link(chat.id)
             except Exception:
-                invite_link = "https://t.me/Codeflix_Bots"
+                invite_link = "https://t.me/SenFlux"
 
             buttons = [
                 [InlineKeyboardButton('• ᴊᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇs •', url='https://t.me/SpicyVerse')],
@@ -62,7 +62,7 @@ async def autoapprove(client, message: ChatJoinRequest):
             try:
                 await client.send_photo(
                     chat_id=user.id,
-                    photo='https://litter.catbox.moe/mzsd3o.jpg',
+                    photo='https://litter.catbox.moe/07gbt5.jpg',
                     caption=caption,
                     reply_markup=markup
                 )
