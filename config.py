@@ -48,7 +48,7 @@ CHANNELS_TXT = """<b>✦ ᴍʏ ɴᴇᴛᴡᴏʀᴋ
 
 <blockquote expandable>›› ᴀɴɪᴍᴇ ᴄʜᴀɴɴᴇʟ: <a href='https://t.me/PrimeToons'>ᴘʀɪᴍᴇᴛᴏᴏɴꜱ</a>
 ›› ᴍᴏᴠɪᴇs: <a href='https://t.me/AuraTube'>ᴀᴜʀᴀᴛᴜʙᴇ</a>
-›› ᴡᴇʙsᴇʀɪᴇs: <a href='https://t.me/'>ᴡᴇʙsᴇʀɪᴇs</a>
+›› ᴡᴇʙsᴇʀɪᴇs: <a href='https://t.me/+Pv4mcgvP8ulhZWZl'>ᴀᴜʀᴀsᴇʀɪᴇs</a>
 ›› ᴀᴅᴜʟᴛ ᴄʜᴀɴɴᴇʟs: <a href='https://t.me/SpicyVerse'>ꜱᴘɪᴄʏᴠᴇʀꜱᴇ</a>
 ›› ᴅᴇᴠᴇʟᴏᴘᴇʀ: @EpicSenpai</b></blockquote>""" # Bhosdiwalo agar developer me Yato ka username hataya to agli baar se koi repo public nhi krunga!!
 
