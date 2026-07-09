@@ -5,7 +5,7 @@ from bot import Bot
 from config import MONGO_URI
 
 mongo_client = AsyncIOMotorClient(MONGO_URI)
-approved_members_db = mongo_client["KafkaProBot"]["approved_members"]
+approved_members_db = mongo_client["link"]["approved_members"]
 
 async def is_previously_approved(channel_id: int, user_id: int) -> bool:
     doc = await approved_members_db.find_one({"channel_id": channel_id, "user_id": user_id})
