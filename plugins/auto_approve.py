@@ -1,3 +1,4 @@
+from config import MONGO_URI
 from pyrogram.enums import ChatMemberStatus, ParseMode
 from motor.motor_asyncio import AsyncIOMotorClient
 from bot import Bot
