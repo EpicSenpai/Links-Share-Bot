@@ -26,7 +26,7 @@ user_banned_until = {}
 cancel_lock = asyncio.Lock()
 is_canceled = False
 
-LINK_IMAGE = "https://d.uguu.se/mEmNQrcH.jpg"
+LINK_IMAGE = "https://litter.catbox.moe/2aswnd.jpg"
 
 
 async def build_link_caption(client: Bot, channel_id):
