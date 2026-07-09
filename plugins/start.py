@@ -225,11 +225,11 @@ async def reload_link_callback(client: Bot, callback_query: CallbackQuery):
         return await callback_query.answer("Failed to reload link.", show_alert=True)
 
     caption = await build_link_caption(client, channel_id)
-    button_text = "• ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ •" if is_request_link else "• ᴊᴏɪɴ •"
+    button_text = "• ᴊᴏɪɴ" if is_request_link else "• ᴊᴏɪɴ"
     button = InlineKeyboardMarkup(
         [
             [InlineKeyboardButton(button_text, url=invite_link),
-             InlineKeyboardButton("• ʀᴇʟᴏᴀᴅ •", callback_data=f"reload_{channel_id}_{int(is_request_link)}")]
+             InlineKeyboardButton("ʀᴇʟᴏᴀᴅ •", callback_data=f"reload_{channel_id}_{int(is_request_link)}")]
         ]
     )
 
