@@ -26,6 +26,27 @@ user_banned_until = {}
 cancel_lock = asyncio.Lock()
 is_canceled = False
 
+LINK_IMAGE = "https://litter.catbox.moe/mzsd3o.jpg"
+
+
+async def build_link_caption(client: Bot, channel_id):
+    channel_name = "this channel"
+    subs_count = "N/A"
+    try:
+        chat_info = await client.get_chat(channel_id)
+        channel_name = chat_info.title
+        subs_count = chat_info.members_count if chat_info.members_count else "N/A"
+    except Exception as e:
+        print(f"Failed to fetch chat info: {e}")
+
+    caption = (
+        f"<b>◍ ʜᴇʀᴇ ɪs ʏᴏᴜʀ ʟɪɴᴋ ғᴏʀ {channel_name}!\n"
+        f"◍ sᴜʙs: {subs_count}\n\n"
+        f"<blockquote>⧗ ʟɪɴᴋ ᴇxᴘɪʀᴇs ɪɴ 9 ᴍɪɴ..ᴄʟɪᴄᴋ ʀᴇʟᴏᴀᴅ ɪғ ɪᴛ ᴇxᴘʀᴇs.</blockquote></b>"
+    )
+    return caption
+
+
 @Bot.on_message(filters.command('start') & filters.private)
 async def start_command(client: Bot, message: Message):
     user_id = message.from_user.id
@@ -102,28 +123,35 @@ async def start_command(client: Bot, message: Message):
                     is_request_link = is_request
                     await save_invite_link(channel_id, invite_link, is_request_link)
 
-            button_text = "• ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ •" if is_request_link else "• ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ •"
-            button = InlineKeyboardMarkup([[InlineKeyboardButton(button_text, url=invite_link)]])
+            caption = await build_link_caption(client, channel_id)
+
+            button_text = "• ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ •" if is_request_link else "• ᴊᴏɪɴ •"
+            button = InlineKeyboardMarkup(
+                [
+                    [InlineKeyboardButton(button_text, url=invite_link),
+                     InlineKeyboardButton("• ʀᴇʟᴏᴀᴅ •", callback_data=f"reload_{channel_id}_{int(is_request_link)}")]
+                ]
+            )
 
             wait_msg = await message.reply_text("⏳", parse_mode=ParseMode.HTML)
             await wait_msg.delete()
-            
-            await message.reply_text(
-                "<b><blockquote expandable>ʜᴇʀᴇ ɪs ʏᴏᴜʀ ʟɪɴᴋ! ᴄʟɪᴄᴋ ʙᴇʟᴏᴡ ᴛᴏ ᴘʀᴏᴄᴇᴇᴅ</b>",
-                reply_markup=button,
-                parse_mode=ParseMode.HTML
-            )
-
-            note_msg = await message.reply_text(
-                "<u><b>Note: If the link is expired, please click the post link again to get a new one.</b></u>",
-                parse_mode=ParseMode.HTML
-            )
 
             try:
-                asyncio.create_task(delete_after_delay(note_msg, 300))
-                asyncio.create_task(revoke_invite_after_5_minutes(client, channel_id, invite_link, is_request_link))
-            except Exception as bg_err:
-                print(f"Background task scheduling error: {bg_err}")
+                await message.reply_photo(
+                    photo=LINK_IMAGE,
+                    caption=caption,
+                    reply_markup=button,
+                    parse_mode=ParseMode.HTML
+                )
+            except Exception as e:
+                print(f"Error sending link photo: {e}")
+                await message.reply_text(
+                    caption,
+                    reply_markup=button,
+                    parse_mode=ParseMode.HTML
+                )
+
+            asyncio.create_task(revoke_invite_after_5_minutes(client, channel_id, invite_link, is_request_link))
 
         except Exception as e:
             await message.reply_text(
@@ -162,6 +190,59 @@ async def start_command(client: Bot, message: Message):
                 reply_markup=inline_buttons,
                 parse_mode=ParseMode.HTML
             )
+
+
+@Bot.on_callback_query(filters.regex(r"^reload_"))
+async def reload_link_callback(client: Bot, callback_query: CallbackQuery):
+    await callback_query.answer("Generating new link...")
+
+    try:
+        parts = callback_query.data.split("_")
+        channel_id = int(parts[1])
+        is_request_link = bool(int(parts[2]))
+    except Exception as e:
+        print(f"Reload data parse error: {e}")
+        return await callback_query.answer("Invalid reload request.", show_alert=True)
+
+    try:
+        async with channel_locks[channel_id]:
+            old_link_info = await get_current_invite_link(channel_id)
+            if old_link_info:
+                try:
+                    await client.revoke_chat_invite_link(channel_id, old_link_info["invite_link"])
+                except Exception as e:
+                    print(f"Failed to revoke old link: {e}")
+
+            invite = await client.create_chat_invite_link(
+                chat_id=channel_id,
+                expire_date=datetime.now() + timedelta(minutes=10),
+                creates_join_request=is_request_link
+            )
+            invite_link = invite.invite_link
+            await save_invite_link(channel_id, invite_link, is_request_link)
+    except Exception as e:
+        print(f"Reload error: {e}")
+        return await callback_query.answer("Failed to reload link.", show_alert=True)
+
+    caption = await build_link_caption(client, channel_id)
+    button_text = "• ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ •" if is_request_link else "• ᴊᴏɪɴ •"
+    button = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton(button_text, url=invite_link),
+             InlineKeyboardButton("• ʀᴇʟᴏᴀᴅ •", callback_data=f"reload_{channel_id}_{int(is_request_link)}")]
+        ]
+    )
+
+    try:
+        await callback_query.message.edit_caption(
+            caption=caption,
+            reply_markup=button,
+            parse_mode=ParseMode.HTML
+        )
+    except Exception as e:
+        print(f"Edit caption error: {e}")
+
+    asyncio.create_task(revoke_invite_after_5_minutes(client, channel_id, invite_link, is_request_link))
 
 
 async def get_link_creation_time(channel_id):
@@ -439,46 +520,3 @@ async def auto_delete(sent_msg, duration):
         await sent_msg.delete()
     except:
         pass
-
-@Bot.on_callback_query(filters.regex("^ABOUT$"))
-async def about_callback(client: Bot, callback_query: CallbackQuery):
-    await callback_query.answer()
-    back_button = InlineKeyboardMarkup(
-        [[InlineKeyboardButton("• ʙᴀᴄᴋ", callback_data="back_to_start"),
-          InlineKeyboardButton("ᴄʟᴏꜱᴇ •", callback_data="close")]]
-    )
-    await callback_query.message.edit_caption(
-        caption=ABOUT_TXT,
-        reply_markup=back_button,
-        parse_mode=ParseMode.HTML
-    )
-
-@Bot.on_callback_query(filters.regex("^HELP$"))
-async def channels_callback(client: Bot, callback_query: CallbackQuery):
-    await callback_query.answer()
-    back_button = InlineKeyboardMarkup(
-        [[InlineKeyboardButton("• ʙᴀᴄᴋ", callback_data="back_to_start"),
-          InlineKeyboardButton("ᴄʟᴏꜱᴇ •", callback_data="close")]]
-    )
-    await callback_query.message.edit_caption(
-        caption=CHANNELS_TXT,
-        reply_markup=back_button,
-        parse_mode=ParseMode.HTML
-    )
-
-@Bot.on_callback_query(filters.regex("^back_to_start$"))
-async def back_to_start_callback(client: Bot, callback_query: CallbackQuery):
-    await callback_query.answer()
-    inline_buttons = InlineKeyboardMarkup(
-        [
-            [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="ABOUT"),
-             InlineKeyboardButton("ᴄʜᴀɴɴᴇʟs •", callback_data="HELP")],
-            [InlineKeyboardButton("• ᴄʟᴏꜱᴇ •", callback_data="close")]
-        ]
-    )
-    formatted_msg = START_MSG.format(mention=callback_query.from_user.mention) if "{mention}" in START_MSG else START_MSG
-    await callback_query.message.edit_caption(
-        caption=formatted_msg,
-        reply_markup=inline_buttons,
-        parse_mode=ParseMode.HTML
-    )
