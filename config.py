@@ -49,7 +49,7 @@ CHANNELS_TXT = """<b>✦ ᴍʏ ɴᴇᴛᴡᴏʀᴋ
 ›› ᴡᴇʙsᴇʀɪᴇs: <a href='https://t.me/+Pv4mcgvP8ulhZWZl'>ᴀᴜʀᴀsᴇʀɪᴇs</a>
 ›› ᴀᴅᴜʟᴛ ᴄʜᴀɴɴᴇʟs: <a href='https://t.me/SpicyVerse'>ꜱᴘɪᴄʏᴠᴇʀꜱᴇ</a>
 ›› ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ: <a href='https://t.me/SenVerse'>ꜱᴇɴᴘᴀɪ'ꜱ ᴠᴇʀꜱᴇ</a>
-›› ᴅᴇᴠᴇʟᴏᴘᴇʀ: <a href='https://t.me/SenFlux'>ꜱᴇɴғʟᴜx</a>""" # Bhosdiwalo agar developer me Yato ka username hataya to agli baar se koi repo public nhi krunga!!
+›› ᴅᴇᴠᴇʟᴏᴘᴇʀ: <a href='https://t.me/SenFlux'>ꜱᴇɴғʟᴜx</a></blockquote>""" # Bhosdiwalo agar developer me Yato ka username hataya to agli baar se koi repo public nhi krunga!!
 
 #--- ---- ---- --- --- --- - -- -  - - - - - - - - - - - --  - -
 # Default
