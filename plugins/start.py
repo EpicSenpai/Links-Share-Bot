@@ -42,7 +42,7 @@ async def build_link_caption(client: Bot, channel_id):
     caption = (
         f"<b>◍ ʜᴇʀᴇ ɪs ʏᴏᴜʀ ʟɪɴᴋ ғᴏʀ {channel_name}!\n"
         f"◍ sᴜʙs: {subs_count}\n\n"
-        f"<blockquote>⧗ ʟɪɴᴋ ᴇxᴘɪʀᴇs ɪɴ 9 ᴍɪɴ..ᴄʟɪᴄᴋ ʀᴇʟᴏᴀᴅ ɪғ ɪᴛ ᴇxᴘʀᴇs.</blockquote></b>"
+        f"<blockquote>⧗ ʟɪɴᴋ ᴇxᴘɪʀᴇs ɪɴ 9 ᴍɪɴ..ᴄʟɪᴄᴋ ʀᴇʟᴏᴀᴅ ɪғ ɪᴛ ᴇxᴘɪʀᴇꜱ.</blockquote></b>"
     )
     return caption
 
@@ -125,11 +125,11 @@ async def start_command(client: Bot, message: Message):
 
             caption = await build_link_caption(client, channel_id)
 
-            button_text = "• ʀᴇǫᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ •" if is_request_link else "• ᴊᴏɪɴ •"
+            button_text = "• ᴊᴏɪɴ" if is_request_link else "• ᴊᴏɪɴ"
             button = InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton(button_text, url=invite_link),
-                     InlineKeyboardButton("• ʀᴇʟᴏᴀᴅ •", callback_data=f"reload_{channel_id}_{int(is_request_link)}")]
+                     InlineKeyboardButton("ʀᴇʟᴏᴀᴅ •", callback_data=f"reload_{channel_id}_{int(is_request_link)}")]
                 ]
             )
 
@@ -520,3 +520,46 @@ async def auto_delete(sent_msg, duration):
         await sent_msg.delete()
     except:
         pass
+
+@Bot.on_callback_query(filters.regex("^ABOUT$"))
+async def about_callback(client: Bot, callback_query: CallbackQuery):
+    await callback_query.answer()
+    back_button = InlineKeyboardMarkup(
+        [[InlineKeyboardButton("• ʙᴀᴄᴋ", callback_data="back_to_start"),
+          InlineKeyboardButton("ᴄʟᴏꜱᴇ •", callback_data="close")]]
+    )
+    await callback_query.message.edit_caption(
+        caption=ABOUT_TXT,
+        reply_markup=back_button,
+        parse_mode=ParseMode.HTML
+    )
+
+@Bot.on_callback_query(filters.regex("^HELP$"))
+async def channels_callback(client: Bot, callback_query: CallbackQuery):
+    await callback_query.answer()
+    back_button = InlineKeyboardMarkup(
+        [[InlineKeyboardButton("• ʙᴀᴄᴋ", callback_data="back_to_start"),
+          InlineKeyboardButton("ᴄʟᴏꜱᴇ •", callback_data="close")]]
+    )
+    await callback_query.message.edit_caption(
+        caption=CHANNELS_TXT,
+        reply_markup=back_button,
+        parse_mode=ParseMode.HTML
+    )
+
+@Bot.on_callback_query(filters.regex("^back_to_start$"))
+async def back_to_start_callback(client: Bot, callback_query: CallbackQuery):
+    await callback_query.answer()
+    inline_buttons = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="ABOUT"),
+             InlineKeyboardButton("ᴄʜᴀɴɴᴇʟs •", callback_data="HELP")],
+            [InlineKeyboardButton("• ᴄʟᴏꜱᴇ •", callback_data="close")]
+        ]
+    )
+    formatted_msg = START_MSG.format(mention=callback_query.from_user.mention) if "{mention}" in START_MSG else START_MSG
+    await callback_query.message.edit_caption(
+        caption=formatted_msg,
+        reply_markup=inline_buttons,
+        parse_mode=ParseMode.HTML
+    )
