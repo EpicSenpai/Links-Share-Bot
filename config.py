@@ -30,7 +30,7 @@ TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "40"))
 START_PIC = "https://litter.catbox.moe/39r26l.jpg"
 START_IMG = "https://litter.catbox.moe/07gbt5.jpg"
 # Messages
-START_MSG = os.environ.get("START_MESSAGE", "<b><blockquote> ›› ʜᴇʏ {mention} × </blockquote>\n<blockquote>\nᴛʜᴇ ʜᴇᴀᴠɪᴇsᴛ ʙᴜʀᴅᴇɴs ᴀʀᴇ ᴏғᴛᴇɴ ᴄᴀʀʀɪᴇᴅ ʙʏ ᴛʜᴏsᴇ ᴡʜᴏ ɴᴇᴠᴇʀ ᴄᴏᴍᴘʟᴀɪɴ.\n</blockquote></b>")
+START_MSG = os.environ.get("START_MESSAGE", "<b><blockquote> ›› ʜᴇʏ {mention} × </blockquote>\n\n<blockquote>ᴛʜᴇ ʜᴇᴀᴠɪᴇsᴛ ʙᴜʀᴅᴇɴs ᴀʀᴇ ᴏғᴛᴇɴ ᴄᴀʀʀɪᴇᴅ ʙʏ ᴛʜᴏsᴇ ᴡʜᴏ ɴᴇᴠᴇʀ ᴄᴏᴍᴘʟᴀɪɴ.</blockquote></b>")
 HELP = os.environ.get("HELP_MESSAGE", "<b><blockquote expandable>» Creator: <a href=https://t.me/EpicSenpai>UrSenpai</a>\n» Our Community: <a href=https://t.me/SenFlux>My Network</a>\n» Anime Channel: <a href=https://t.me/PrimeToons>PrimeToons</a>\n» Developer: <a href=https://t.me/EpicSenpai>EpicSenpai</a></blockquote</b>")
 ABOUT = os.environ.get("ABOUT_MESSAGE", "<b><blockquote expandable>This bot is developed by EpicSenpai (@EpicSenpai) to securely share Telegram channel links with temporary invite links, protecting your channels from copyright issues.</blockquote</b>")
 
